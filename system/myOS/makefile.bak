@@ -1,0 +1,27 @@
+TOOLPATH = ../z_tools/
+EDIMG = $(TOOLPATH)edimg.exe
+
+
+main.img:ipl.bin haribote.sys
+	$(EDIMG)	imgin:../z_tools/fdimg0at.tek \
+			wbinimg src:ipl.bin len:512 from:0 to:0 \
+			copy from:haribote.sys to:@: \
+			imgout:main.img
+
+
+
+
+haribote.sys:haribote.asm
+	nasm haribote.asm -o haribote.sys
+
+
+ipl.bin:ipl.asm
+	nasm ipl.asm -o ipl.bin
+
+clean:
+	del ipl.bin
+	del haribote.sys
+	del main.img
+
+
+
